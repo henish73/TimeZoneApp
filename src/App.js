@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { DateTime } from "luxon";
 import { motion } from "framer-motion";
 import { Copy, ArrowLeftRight, Clock, Globe2, CalendarDays } from "lucide-react";
@@ -76,25 +76,24 @@ export default function TimezoneConverterApp() {
   const sourceDisplay = sourceDT?.toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS) || "";
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="mx-auto max-w-4xl">
-        <motion.h1
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight flex items-center gap-3"
-        >
-          <Globe2 className="w-8 h-8" /> Time Zone Converter
-        </motion.h1>
-        <p className="text-slate-600 mt-2">Select a date & time, choose a source time zone and a target time zone, and get the precise converted time (DST-aware).</p>
+  <div className="min-h-screen w-full bg-gradient-to-br from-blue-100 to-indigo-200 p-6 flex items-center justify-center">
+  <div className="mx-auto max-w-4xl w-full">
+        <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-center mb-6">
+          <div className="bg-white rounded-full shadow-lg px-6 py-4 flex items-center gap-4">
+            <Globe2 className="w-10 h-10 text-indigo-500" />
+            <span className="text-4xl md:text-5xl font-extrabold text-indigo-700 tracking-tight">Time Zone Converter</span>
+          </div>
+        </motion.div>
+  <p className="text-indigo-700 mt-2 text-center text-lg">Select a date & time, choose a source time zone and a target time zone, and get the precise converted time (DST-aware).</p>
 
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Source Card */}
-          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl shadow p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <Clock className="w-5 h-5" />
-              <h2 className="text-lg font-semibold">Source</h2>
+          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-3xl shadow-lg p-7 border border-indigo-100">
+            <div className="flex items-center gap-2 mb-6">
+              <Clock className="w-6 h-6 text-indigo-500" />
+              <h2 className="text-2xl font-bold text-indigo-700">Source</h2>
             </div>
-            <label className="block text-sm text-slate-600 mb-1">Date & time</label>
+            <label className="block text-base text-indigo-600 mb-2 font-medium">Date & time</label>
             <input
               type="datetime-local"
               value={toDatetimeLocal(sourceDT.isValid ? sourceDT : DateTime.local())}
@@ -104,14 +103,14 @@ export default function TimezoneConverterApp() {
                 const dt = DateTime.fromFormat(v, "yyyy-LL-dd'T'HH:mm", { zone: sourceZone });
                 setSourceISO(dt.toISO({ suppressMilliseconds: true }) || "");
               }}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-400"
+              className="w-full rounded-2xl border border-indigo-300 px-4 py-3 text-indigo-900 bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-lg"
             />
 
-            <label className="block text-sm text-slate-600 mt-4 mb-1">Source time zone</label>
+            <label className="block text-base text-indigo-600 mt-6 mb-2 font-medium">Source time zone</label>
             <div className="flex items-center gap-2">
               <input
                 placeholder="Search time zones (e.g., Toronto, India, UTC)"
-                className="w-full rounded-xl border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-400"
+                className="w-full rounded-2xl border border-indigo-300 px-4 py-3 text-indigo-900 bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-lg"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
               />
@@ -119,7 +118,7 @@ export default function TimezoneConverterApp() {
             <select
               value={sourceZone}
               onChange={(e) => setSourceZone(e.target.value)}
-              className="mt-2 w-full rounded-xl border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-400 h-[48px]"
+              className="mt-3 w-full rounded-2xl border border-indigo-300 px-4 py-3 text-indigo-900 bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-lg h-[56px]"
             >
               {/* Pin common/local options */}
               <optgroup label="Quick picks">
@@ -136,23 +135,23 @@ export default function TimezoneConverterApp() {
                 ))}
               </optgroup>
             </select>
-            <p className="text-xs text-slate-500 mt-2">Offset now: {formatOffset(sourceZone, DateTime.local())}</p>
+            <p className="text-xs text-indigo-500 mt-3">Offset now: {formatOffset(sourceZone, DateTime.local())}</p>
           </motion.div>
 
           {/* Target Card */}
-          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl shadow p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <Globe2 className="w-5 h-5" />
-              <h2 className="text-lg font-semibold">Target</h2>
+          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-3xl shadow-lg p-7 border border-indigo-100">
+            <div className="flex items-center gap-2 mb-6">
+              <Globe2 className="w-6 h-6 text-indigo-500" />
+              <h2 className="text-2xl font-bold text-indigo-700">Target</h2>
             </div>
 
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center justify-between gap-4">
               <div className="flex-1">
-                <label className="block text-sm text-slate-600 mb-1">Target time zone</label>
+                <label className="block text-base text-indigo-600 mb-2 font-medium">Target time zone</label>
                 <select
                   value={targetZone}
                   onChange={(e) => setTargetZone(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-400 h-[48px]"
+                  className="w-full rounded-2xl border border-indigo-300 px-4 py-3 text-indigo-900 bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-lg h-[56px]"
                 >
                   <optgroup label="Quick picks">
                     <option value="UTC">UTC</option>
@@ -168,44 +167,44 @@ export default function TimezoneConverterApp() {
                     ))}
                   </optgroup>
                 </select>
-                <p className="text-xs text-slate-500 mt-2">Offset now: {formatOffset(targetZone, DateTime.local())}</p>
+                <p className="text-xs text-indigo-500 mt-3">Offset now: {formatOffset(targetZone, DateTime.local())}</p>
               </div>
               <button
-                className="shrink-0 mt-7 rounded-xl border border-slate-300 px-3 py-2 hover:bg-slate-50 active:scale-[.99] transition flex items-center gap-2"
+                className="shrink-0 mt-8 rounded-2xl border border-indigo-300 px-4 py-3 bg-indigo-100 hover:bg-indigo-200 active:scale-[.99] transition flex items-center gap-2 text-indigo-700 font-semibold"
                 onClick={swapZones}
                 title="Swap source/target"
               >
-                <ArrowLeftRight className="w-4 h-4" /> Swap
+                <ArrowLeftRight className="w-5 h-5" /> Swap
               </button>
             </div>
 
-            <div className="mt-6">
-              <div className="text-sm text-slate-600 flex items-center gap-2"><CalendarDays className="w-4 h-4"/>Converted date & time</div>
-              <div className="mt-2 rounded-xl bg-slate-50 border border-slate-200 p-4">
+            <div className="mt-8">
+              <div className="text-base text-indigo-600 flex items-center gap-2 font-medium"><CalendarDays className="w-5 h-5"/>Converted date & time</div>
+              <div className="mt-3 rounded-2xl bg-indigo-50 border border-indigo-200 p-6">
                 {targetDT ? (
-                  <div className="space-y-1">
-                    <div className="text-xl font-semibold text-slate-900">{targetDT.toFormat("cccc, d LLLL yyyy • HH:mm (ZZZZ)")}</div>
-                    <div className="text-slate-700">{targetDisplay}</div>
-                    <div className="text-slate-500 text-sm">Epoch: {targetDT.toMillis()} • ISO: {targetDT.toISO({ suppressMilliseconds: true })}</div>
-                    <div className="flex gap-2 mt-2">
+                  <div className="space-y-2">
+                    <div className="text-2xl font-bold text-indigo-700">{targetDT.toFormat("cccc, d LLLL yyyy • HH:mm (ZZZZ)")}</div>
+                    <div className="text-indigo-900 text-lg">{targetDisplay}</div>
+                    <div className="text-indigo-500 text-base">Epoch: {targetDT.toMillis()} • ISO: {targetDT.toISO({ suppressMilliseconds: true })}</div>
+                    <div className="flex gap-3 mt-3">
                       <button
-                        className="rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm hover:bg-white flex items-center gap-2"
+                        className="rounded-xl border border-indigo-300 px-4 py-2 text-base bg-white hover:bg-indigo-100 flex items-center gap-2 text-indigo-700 font-semibold"
                         onClick={() => onCopy(targetDT.toISO({ suppressMilliseconds: true }) || "")}
                         title="Copy ISO"
                       >
-                        <Copy className="w-4 h-4"/> Copy ISO
+                        <Copy className="w-5 h-5"/> Copy ISO
                       </button>
                       <button
-                        className="rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm hover:bg-white flex items-center gap-2"
+                        className="rounded-xl border border-indigo-300 px-4 py-2 text-base bg-white hover:bg-indigo-100 flex items-center gap-2 text-indigo-700 font-semibold"
                         onClick={() => onCopy(targetDT.toFormat("cccc, d LLLL yyyy HH:mm ZZZZ"))}
                         title="Copy formatted"
                       >
-                        <Copy className="w-4 h-4"/> Copy formatted
+                        <Copy className="w-5 h-5"/> Copy formatted
                       </button>
                     </div>
                   </div>
                 ) : (
-                  <div className="text-slate-500">Enter a valid date/time to see the result.</div>
+                  <div className="text-indigo-400">Enter a valid date/time to see the result.</div>
                 )}
               </div>
             </div>
@@ -213,14 +212,14 @@ export default function TimezoneConverterApp() {
         </div>
 
         {/* Source preview */}
-        <div className="mt-6 bg-white rounded-2xl shadow p-5">
-          <div className="text-sm text-slate-600">You entered</div>
-          <div className="mt-1 text-slate-900 font-medium">{sourceDisplay || "—"}</div>
-          <div className="text-slate-500 text-sm mt-1">Zone: {sourceZone} ({formatOffset(sourceZone, DateTime.local())})</div>
+        <div className="mt-8 bg-white rounded-3xl shadow-lg p-7 border border-indigo-100 flex flex-col items-center">
+          <div className="text-base text-indigo-600 font-medium">You entered</div>
+          <div className="mt-2 text-indigo-900 text-xl font-bold">{sourceDisplay || "—"}</div>
+          <div className="text-indigo-500 text-base mt-2">Zone: {sourceZone} ({formatOffset(sourceZone, DateTime.local())})</div>
         </div>
 
         {/* Tips */}
-        <div className="mt-6 text-sm text-slate-500">
+        <div className="mt-8 text-base text-indigo-500 text-center">
           <p><strong>Tip:</strong> Daylight Saving Time is handled automatically by the selected time zones (IANA tzdb) via Luxon/Intl.</p>
         </div>
       </div>
